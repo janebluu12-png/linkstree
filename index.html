@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ร้านขนมลิงก์ในฝัน</title>
+  <meta name="description" content="ตู้ขนมในฝัน — จิ้มขนมสักชิ้น แล้วจะพาไปหากัน">
+  <meta name="theme-color" content="#fdf1ea">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- ฟิลเตอร์เส้นดินสอ: ทำให้เส้นสั่นๆ เหมือนวาดมือ -->
+  <svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="pencil" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="3" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="2.6" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <filter id="pencil-ghost" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="3.6" xChannelSelector="G" yChannelSelector="R"/>
+      </filter>
+      <filter id="wobble" x="-5%" y="-5%" width="110%" height="110%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="2" seed="7" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <div class="dreamy" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+  <div class="sky" id="sky" aria-hidden="true"></div>
+
+  <button class="lamp" id="lamp" type="button" aria-label="เปิด/ปิดไฟร้าน (สลับโหมดกลางคืน)">
+    <span class="lamp-cord"></span>
+    <svg viewBox="0 0 60 64" class="lamp-art" aria-hidden="true">
+      <g filter="url(#pencil)" stroke="#7b5a48" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+        <ellipse class="lamp-light" cx="30" cy="46" rx="11" ry="11" fill="#fff3c4"/>
+        <path d="M6 40 Q8 14 30 12 Q52 14 54 40 Q30 46 6 40 Z" fill="#f4b6bf"/>
+        <path d="M14 30 Q22 24 30 24" fill="none" stroke="#fff" stroke-opacity=".7"/>
+        <rect x="25" y="4" width="10" height="9" rx="3" fill="#e2b98d"/>
+      </g>
+    </svg>
+    <span class="lamp-pull"><i></i></span>
+  </button>
+
+  <main class="shop">
+    <header class="profile">
+      <div class="avatar" id="avatar"></div>
+      <h1 class="sign" id="sign">SWEET LINKS</h1>
+      <p class="handle" id="handle"></p>
+      <p class="note" id="bio"></p>
+    </header>
+
+    <p class="hint"><span aria-hidden="true">✎</span> จิ้มขนมที่ชอบได้เลย เดี๋ยวพาไปหาเอง <span aria-hidden="true">↓</span></p>
+
+    <section class="case" aria-label="ตู้ขนม — แต่ละชิ้นคือลิงก์">
+      <span class="giggle g1" aria-hidden="true">กิ๊ๆ</span>
+      <span class="giggle g2" aria-hidden="true">หอมจัง~</span>
+      <div class="shelves" id="shelves"></div>
+      <div class="glare" aria-hidden="true"></div>
+    </section>
+
+    <div class="counter">
+      <button class="bell" id="bell" type="button">
+        <svg viewBox="0 0 80 70" class="bell-art" aria-hidden="true">
+          <g filter="url(#pencil)" stroke="#7b5a48" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+            <ellipse cx="40" cy="60" rx="30" ry="6" fill="#e2b98d"/>
+            <path d="M16 56 Q16 22 40 20 Q64 22 64 56 Z" fill="#f7d77a"/>
+            <path d="M24 46 Q24 30 36 27" fill="none" stroke="#fff" stroke-opacity=".75"/>
+            <circle cx="40" cy="15" r="5" fill="#f4b6bf"/>
+          </g>
+        </svg>
+        <span class="bell-label">กดกริ่ง · เสี่ยงขนม</span>
+      </button>
+    </div>
+
+    <section class="menu" aria-labelledby="menuTitle">
+      <h2 id="menuTitle">วันนี้ในตู้มีอะไรบ้างน้า?</h2>
+      <div class="menu-oval">
+        <ol class="menu-list" id="menuList"></ol>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <p>วาดด้วยดินสอ <span aria-hidden="true">✎</span> และความฝันนิดหน่อย <span aria-hidden="true">☁</span></p>
+    </footer>
+  </main>
+
+  <div class="fortune" id="fortune" hidden>
+    <div class="fortune-card" role="dialog" aria-modal="true" aria-labelledby="fortuneText">
+      <p class="fortune-head">ขนมเสี่ยงทายของวันนี้คือ…</p>
+      <div class="fortune-art" id="fortuneArt"></div>
+      <p class="fortune-text" id="fortuneText"></p>
+      <button type="button" class="fortune-close" id="fortuneClose">รับขนมไปเลย ♡</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

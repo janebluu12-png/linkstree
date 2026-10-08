@@ -1,0 +1,444 @@
+/* ===== สี (กลางวัน) ===== */
+:root {
+  --bg: #fdf1ea;
+  --dot: #f4d6d1;
+  --text: #6e4f3f;
+  --text-soft: #a3826e;
+  --frame: #8a6450;
+  --wood: #e6bf94;
+  --wood-front: #c99366;
+  --case-top: #fffaf4;
+  --case-bottom: #fbe6da;
+  --chalk: #4e3d37;
+  --chalk-text: #fff6ea;
+  --paper: #fffaf4;
+  --stripe: #c9d7ee;
+  --stripe-bg: #f3f6fc;
+  --bubble: #ffffff;
+  --glow: rgba(255, 220, 170, 0);
+  --star: #f5c86a;
+  --blob1: #ffd6dc; --blob2: #ffe7c2; --blob3: #d7e4ff; --blob4: #eadcff;
+  --shade: rgba(110, 70, 40, .28);
+  color-scheme: light;
+}
+/* ===== สี (กลางคืน ฟุ้งๆ) ===== */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #2a2442; --dot: #383057; --text: #f7e8dc; --text-soft: #c9b6d8;
+    --frame: #e9cdb5; --wood: #92706a; --wood-front: #6e5050;
+    --case-top: #40376a; --case-bottom: #2f2850;
+    --chalk: #1d1830; --chalk-text: #fff3e2; --paper: #3a3260;
+    --stripe: #4b4278; --stripe-bg: #332b55; --bubble: #4a4078;
+    --glow: rgba(255, 214, 150, .4); --star: #ffeaa8;
+    --blob1: #6b4c8f; --blob2: #3f5a8f; --blob3: #8a4f7a; --blob4: #4a3f86;
+    --shade: rgba(0, 0, 0, .35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #2a2442; --dot: #383057; --text: #f7e8dc; --text-soft: #c9b6d8;
+  --frame: #e9cdb5; --wood: #92706a; --wood-front: #6e5050;
+  --case-top: #40376a; --case-bottom: #2f2850;
+  --chalk: #1d1830; --chalk-text: #fff3e2; --paper: #3a3260;
+  --stripe: #4b4278; --stripe-bg: #332b55; --bubble: #4a4078;
+  --glow: rgba(255, 214, 150, .4); --star: #ffeaa8;
+  --blob1: #6b4c8f; --blob2: #3f5a8f; --blob3: #8a4f7a; --blob4: #4a3f86;
+  --shade: rgba(0, 0, 0, .35);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: "Mali", "Itim", system-ui, sans-serif;
+  color: var(--text);
+  background-color: var(--bg);
+  background-image: radial-gradient(var(--dot) 2.6px, transparent 3.2px);
+  background-size: 34px 34px;
+  transition: background-color .6s, color .6s;
+  -webkit-tap-highlight-color: transparent;
+}
+/* เกรนกระดาษ */
+body::after {
+  content: "";
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 50;
+  opacity: .22;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .33 0 0 0 0 .25 0 0 0 .5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+.defs { position: absolute; }
+
+/* ===== ฉากหลังเหมือนฝัน ===== */
+.dreamy { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+.dreamy span {
+  position: absolute; width: 46vmax; height: 46vmax; border-radius: 50%;
+  filter: blur(60px); opacity: .55;
+  animation: drift 22s ease-in-out infinite alternate;
+}
+.dreamy span:nth-child(1) { background: var(--blob1); left: -14vmax; top: -10vmax; }
+.dreamy span:nth-child(2) { background: var(--blob2); right: -16vmax; top: 20vh; animation-duration: 28s; }
+.dreamy span:nth-child(3) { background: var(--blob3); left: -10vmax; bottom: -16vmax; animation-duration: 25s; }
+.dreamy span:nth-child(4) { background: var(--blob4); right: -12vmax; bottom: -20vmax; animation-duration: 31s; }
+@keyframes drift { to { transform: translate(6vmax, 4vmax) scale(1.12); } }
+
+.sky { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
+.twinkle {
+  position: absolute; width: var(--s); height: var(--s);
+  fill: var(--star); opacity: .8;
+  animation: twinkle var(--t) ease-in-out infinite; animation-delay: var(--d);
+}
+.twinkle svg { width: 100%; height: 100%; display: block; }
+@keyframes twinkle {
+  0%, 100% { transform: scale(.4) rotate(0); opacity: .2; }
+  50% { transform: scale(1) rotate(25deg); opacity: .9; }
+}
+
+/* ===== หน้าร้าน ===== */
+.shop {
+  position: relative; z-index: 2;
+  max-width: 520px; margin: 0 auto;
+  padding: 36px 16px 48px;
+}
+
+/* โปรไฟล์ */
+.profile { text-align: center; }
+.avatar {
+  position: relative;
+  width: 118px; height: 118px; margin: 18px auto 6px;
+  border-radius: 50%;
+  background: var(--paper);
+  display: grid; place-items: center;
+  animation: float 5s ease-in-out infinite;
+}
+.avatar::before {
+  content: ""; position: absolute; inset: -4px;
+  border: 3px dashed var(--frame); border-radius: 50%;
+  filter: url(#wobble);
+  animation: spin 40s linear infinite;
+}
+.avatar::after { /* ก้อนเมฆเล็กๆ ข้างรูป */
+  content: "☁"; position: absolute; right: -26px; top: 4px;
+  font-size: 30px; color: var(--paper);
+  text-shadow: 0 0 0 var(--frame), 1px 1px 0 var(--frame), -1px -1px 0 var(--frame);
+  animation: float 4s ease-in-out infinite reverse;
+}
+.avatar .treat-art { width: 92px; height: 92px; filter: drop-shadow(0 0 12px var(--glow)); }
+.avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+@keyframes float { 50% { transform: translateY(-7px); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.sign {
+  margin: 10px 0 0;
+  font-family: "Itim", "Mali", sans-serif; font-weight: 400;
+  font-size: clamp(34px, 10vw, 46px);
+  letter-spacing: .06em; line-height: 1.1;
+  color: var(--text);
+  text-shadow: 2px 2px 0 var(--dot), 3.5px 3px 0 rgba(123, 90, 72, .18);
+}
+.handle { margin: 4px 0 12px; font-size: 14px; color: var(--text-soft); }
+.note {
+  position: relative; display: inline-block;
+  max-width: 340px; margin: 4px auto 0;
+  padding: 14px 18px 12px;
+  background: var(--paper);
+  border-radius: 4px 14px 6px 16px;
+  box-shadow: 2px 4px 0 var(--shade);
+  transform: rotate(-1.6deg);
+  font-size: 15px; line-height: 1.6;
+}
+.note::before { /* เทปวาชิ */
+  content: ""; position: absolute; left: 50%; top: -10px;
+  width: 74px; height: 20px;
+  transform: translateX(-50%) rotate(3deg);
+  background: repeating-linear-gradient(45deg, rgba(244, 167, 180, .75) 0 6px, rgba(255, 220, 228, .75) 6px 12px);
+}
+
+.hint {
+  margin: 30px 0 4px; text-align: center;
+  font-family: "Itim", sans-serif; font-size: 16px; color: var(--text-soft);
+}
+.hint span:last-child { display: inline-block; animation: bob 1.4s ease-in-out infinite; }
+@keyframes bob { 50% { transform: translateY(4px); } }
+
+/* ===== ตู้กระจก ===== */
+.case {
+  position: relative;
+  margin-top: 12px;
+  padding: 50px 14px 8px;
+  background: linear-gradient(180deg, var(--case-top), var(--case-bottom));
+  border-radius: 50% 50% 22px 22px / 70px 70px 22px 22px;
+  transition: background .6s;
+}
+.case::before, .case::after {
+  content: ""; position: absolute; pointer-events: none;
+  border-radius: inherit; border: 4px solid var(--frame);
+  filter: url(#wobble);
+}
+.case::before { inset: 0; }
+.case::after { inset: 8px; border-width: 2px; opacity: .35; }
+.glare {
+  position: absolute; inset: 0; pointer-events: none; z-index: 6;
+  border-radius: inherit; overflow: hidden;
+}
+.glare::before {
+  content: ""; position: absolute; top: -20%; bottom: -20%; left: -30%; width: 70%;
+  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.5) 33%, transparent 39%, transparent 50%, rgba(255,255,255,.3) 52%, transparent 56%);
+  animation: glare 9s ease-in-out infinite;
+}
+@keyframes glare { 0%, 60% { transform: translateX(-60%); } 100% { transform: translateX(220%); } }
+
+.giggle {
+  position: absolute; z-index: 7;
+  font-family: "Itim", sans-serif; font-size: 14px; color: var(--text-soft);
+  animation: giggle 2.6s ease-in-out infinite;
+}
+.g1 { left: 18%; top: 24px; }
+.g2 { right: 16%; top: 30px; animation-delay: -1.3s; }
+@keyframes giggle { 0%, 100% { transform: translateY(0) rotate(-6deg); } 50% { transform: translateY(-5px) rotate(6deg); } }
+
+.shelf { position: relative; }
+.row { display: flex; justify-content: center; align-items: flex-end; position: relative; z-index: 2; margin-bottom: -10px; }
+.plank {
+  height: 16px; margin: 0 -4px 22px;
+  border: 2.5px solid var(--frame); border-radius: 6px;
+  background: linear-gradient(var(--wood) 0 50%, var(--wood-front) 50%);
+  box-shadow: 0 9px 10px -6px var(--shade);
+  filter: url(#wobble);
+}
+
+/* ===== ขนมแต่ละชิ้น (= ลิงก์) ===== */
+.treat {
+  position: relative;
+  flex: 0 0 calc(100% / var(--n));
+  display: flex; flex-direction: column; align-items: center;
+  padding-top: 30px;
+  text-decoration: none; color: inherit;
+  outline: none;
+  cursor: pointer;
+}
+.treat-art {
+  display: block; width: 100%; max-width: 130px; aspect-ratio: 1;
+  overflow: visible;
+  transform-origin: 50% 92%;
+  animation: breathe 3.4s ease-in-out infinite; animation-delay: var(--d, 0s);
+  filter: drop-shadow(0 0 10px var(--glow));
+}
+.ghost * { fill: none !important; stroke-opacity: .35; }
+.ghost .face, .ghost .shine { display: none; }
+.eyes, .happy { transform-box: fill-box; transform-origin: center; transition: opacity .2s; }
+.eyes { animation: blink 5.5s infinite; animation-delay: var(--d, 0s); }
+.happy { opacity: 0; }
+
+.treat:hover .treat-art, .treat:focus-visible .treat-art { animation: jelly .75s ease; }
+.treat:hover .eyes, .treat:focus-visible .eyes { opacity: 0; }
+.treat:hover .happy, .treat:focus-visible .happy { opacity: 1; }
+.treat.squish .treat-art { animation: squish .5s ease; }
+
+@keyframes breathe { 50% { transform: scale(1.03, .97); } }
+@keyframes blink { 0%, 93%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.1); } }
+@keyframes jelly {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.14, .86); }
+  50% { transform: scale(.9, 1.12) translateY(-8px); }
+  75% { transform: scale(1.05, .96); }
+  100% { transform: scale(1); }
+}
+@keyframes squish {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.25, .7); }
+  60% { transform: scale(.85, 1.2) translateY(-14px) rotate(-4deg); }
+  100% { transform: scale(1); }
+}
+
+.tag {
+  position: relative; z-index: 3;
+  margin-top: -2px; max-width: 96%;
+  padding: 4px 9px 5px;
+  background: var(--chalk); color: var(--chalk-text);
+  border-radius: 3px 5px 4px 6px;
+  box-shadow: 1.5px 2.5px 0 var(--shade);
+  transform: rotate(var(--r, 0deg));
+  font-family: "Itim", sans-serif; line-height: 1.15; text-align: center;
+  transition: transform .25s;
+}
+.tag b { display: block; font-weight: 400; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tag small { display: block; font-size: 10.5px; opacity: .72; }
+.treat:hover .tag, .treat:focus-visible .tag { transform: rotate(0) scale(1.06); }
+.treat:focus-visible .tag { outline: 2.5px dashed var(--frame); outline-offset: 3px; }
+
+.bubble {
+  position: absolute; top: 0; left: 50%; z-index: 8;
+  transform: translate(-50%, 8px) scale(.5);
+  opacity: 0;
+  padding: 4px 11px 5px;
+  background: var(--bubble); color: var(--text);
+  border: 2px solid var(--frame); border-radius: 16px 14px 16px 12px;
+  font-family: "Itim", sans-serif; font-size: 13px; white-space: nowrap;
+  pointer-events: none;
+  transition: opacity .2s, transform .3s cubic-bezier(.3, 1.6, .5, 1);
+}
+.bubble::after {
+  content: ""; position: absolute; left: 50%; bottom: -7px;
+  width: 10px; height: 10px; background: var(--bubble);
+  border-right: 2px solid var(--frame); border-bottom: 2px solid var(--frame);
+  transform: translateX(-50%) rotate(45deg);
+}
+.treat:hover .bubble, .treat:focus-visible .bubble { opacity: 1; transform: translate(-50%, 0) scale(1); }
+
+/* ===== เคาน์เตอร์ + กริ่ง ===== */
+.counter {
+  position: relative;
+  display: flex; justify-content: center;
+  margin: -2px 6px 0; padding: 14px 0 6px;
+  background: linear-gradient(var(--wood) 0 14px, transparent 14px);
+  border-radius: 0 0 20px 20px;
+}
+.bell {
+  display: flex; flex-direction: column; align-items: center;
+  background: none; border: 0; padding: 4px 10px; cursor: pointer;
+  font: inherit; color: var(--text-soft);
+}
+.bell-art { width: 66px; height: 58px; transform-origin: 50% 20%; filter: drop-shadow(0 0 10px var(--glow)); }
+.bell:hover .bell-art { animation: wiggle .5s ease; }
+.bell.ring .bell-art { animation: ring .5s ease; }
+.bell-label { font-family: "Itim", sans-serif; font-size: 14px; }
+.bell:focus-visible { outline: 2.5px dashed var(--frame); outline-offset: 2px; border-radius: 12px; }
+@keyframes wiggle { 25% { transform: rotate(-8deg); } 75% { transform: rotate(8deg); } }
+@keyframes ring {
+  15% { transform: rotate(-18deg); } 30% { transform: rotate(16deg); } 45% { transform: rotate(-12deg); }
+  60% { transform: rotate(8deg); } 75% { transform: rotate(-4deg); } 100% { transform: rotate(0); }
+}
+
+/* ===== เมนูวันนี้ ===== */
+.menu {
+  position: relative;
+  margin-top: 40px; padding: 26px 0 30px;
+  background: repeating-linear-gradient(90deg, var(--stripe-bg) 0 24px, var(--stripe) 24px 31px);
+  border-radius: 28px;
+  transition: background .6s;
+}
+.menu::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  border: 3px solid var(--frame); border-radius: inherit;
+  filter: url(#wobble);
+}
+.menu h2 {
+  margin: 0 0 14px; text-align: center;
+  font-family: "Itim", sans-serif; font-weight: 400; font-size: 22px;
+  transform: rotate(-3deg);
+  text-shadow: 0 0 6px var(--stripe-bg), 0 0 12px var(--stripe-bg);
+}
+.menu-oval {
+  position: relative;
+  margin: 0 14px; padding: 38px 30px;
+  background: var(--paper);
+  border-radius: 50% / 38%;
+  transition: background .6s;
+}
+.menu-oval::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  border: 2.5px solid var(--frame); border-radius: inherit;
+  filter: url(#wobble);
+}
+.menu-list {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px;
+}
+.menu-list a {
+  display: flex; gap: 8px; align-items: baseline;
+  padding: 2px 0; color: var(--text); text-decoration: none;
+  font-size: 14.5px; letter-spacing: .02em;
+}
+.menu-list .letter { color: var(--text-soft); font-family: "Itim", sans-serif; }
+.menu-list a:hover .m-title, .menu-list a:focus-visible .m-title {
+  text-decoration: underline wavy #f4a7b4; text-underline-offset: 4px;
+}
+.menu-list a:focus-visible { outline: none; }
+@media (max-width: 380px) {
+  .menu-oval { border-radius: 40px; padding: 26px 22px; }
+  .menu-list { grid-template-columns: 1fr; }
+}
+
+.foot { margin-top: 30px; text-align: center; font-size: 13px; color: var(--text-soft); }
+
+/* ===== โคมไฟ (สลับกลางวัน/กลางคืน) ===== */
+.lamp {
+  position: fixed; top: 0; right: 18px; z-index: 20;
+  display: flex; flex-direction: column; align-items: center;
+  background: none; border: 0; padding: 0; cursor: pointer;
+  transform-origin: top center;
+  animation: sway 6s ease-in-out infinite;
+}
+.lamp-cord { width: 2px; height: 22px; background: var(--frame); }
+.lamp-art { width: 50px; height: 54px; margin-top: -4px; overflow: visible; }
+.lamp-light { transition: fill .4s, filter .4s; }
+:root[data-theme="dark"] .lamp-light { fill: #ffe38a; filter: drop-shadow(0 0 10px #ffe38a); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .lamp-light { fill: #ffe38a; filter: drop-shadow(0 0 10px #ffe38a); }
+}
+.lamp-pull { display: flex; flex-direction: column; align-items: center; margin-top: -6px; }
+.lamp-pull::before { content: ""; width: 1.5px; height: 18px; background: var(--frame); }
+.lamp-pull i { width: 9px; height: 9px; border-radius: 50%; background: #f4b6bf; border: 2px solid var(--frame); }
+.lamp.pulled .lamp-pull { animation: pull .45s ease; }
+.lamp:focus-visible { outline: 2.5px dashed var(--frame); outline-offset: 2px; border-radius: 10px; }
+@keyframes sway { 50% { transform: rotate(3deg); } }
+@keyframes pull { 40% { transform: translateY(10px); } }
+
+/* ===== ขนมเสี่ยงทาย ===== */
+.fortune {
+  position: fixed; inset: 0; z-index: 40;
+  display: grid; place-items: center; padding: 16px;
+  background: rgba(90, 60, 50, .25);
+  backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+}
+.fortune[hidden] { display: none; }
+.fortune-card {
+  position: relative;
+  width: min(320px, 100%);
+  padding: 22px 22px 20px; text-align: center;
+  background: var(--paper);
+  border-radius: 22px 30px 20px 28px;
+  box-shadow: 4px 6px 0 var(--shade);
+  transform: rotate(-2deg);
+  animation: pop .45s cubic-bezier(.3, 1.6, .5, 1);
+}
+.fortune-card::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  border: 3px solid var(--frame); border-radius: inherit; filter: url(#wobble);
+}
+.fortune-head { margin: 0; font-family: "Itim", sans-serif; color: var(--text-soft); }
+.fortune-art .treat-art { width: 130px; margin: 6px auto 0; }
+.fortune-text { margin: 4px 0 16px; font-size: 17px; line-height: 1.6; }
+.fortune-close {
+  font: inherit; font-family: "Itim", sans-serif; font-size: 16px;
+  padding: 8px 20px; cursor: pointer;
+  color: var(--chalk-text); background: var(--chalk);
+  border: 0; border-radius: 6px 10px 7px 12px;
+  box-shadow: 2px 3px 0 var(--shade);
+  transform: rotate(1.5deg);
+}
+.fortune-close:hover { transform: rotate(-1.5deg) scale(1.05); }
+.fortune-close:focus-visible { outline: 2.5px dashed var(--frame); outline-offset: 3px; }
+@keyframes pop { from { transform: scale(.4) rotate(8deg); opacity: 0; } }
+
+/* ===== อนุภาค ===== */
+.particle, .trail {
+  position: fixed; z-index: 45; pointer-events: none;
+  width: var(--sz); height: var(--sz); margin: calc(var(--sz) / -2) 0 0 calc(var(--sz) / -2);
+}
+.particle svg, .trail svg { width: 100%; height: 100%; display: block; }
+.particle.star { fill: var(--c); stroke: #7b5a48; stroke-width: 1.4; }
+.particle.crumb { background: var(--c); border: 1.5px solid #7b5a48; border-radius: 40% 60% 50% 45%; }
+.particle { animation: fly .85s cubic-bezier(.2, .7, .4, 1) forwards; }
+@keyframes fly {
+  to { transform: translate(var(--dx), var(--dy)) rotate(200deg) scale(.3); opacity: 0; }
+}
+.trail { fill: var(--star); animation: trail .8s ease-out forwards; }
+@keyframes trail { to { transform: translateY(14px) scale(0) rotate(90deg); opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
