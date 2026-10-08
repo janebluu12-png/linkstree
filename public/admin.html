@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>หลังร้าน · Sweet Links</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Itim&family=Mali:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="pencil" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="3" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="2.6" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <filter id="pencil-ghost" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="11" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="3.6" xChannelSelector="G" yChannelSelector="R"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- เข้าสู่ระบบ -->
+  <section class="login" id="login">
+    <form class="card login-card" id="loginForm">
+      <div class="login-art" id="loginArt"></div>
+      <h1>หลังร้าน</h1>
+      <p class="muted">ใส่รหัสผ่านเพื่อแต่งตู้ขนม</p>
+      <label class="field">
+        <span>รหัสผ่าน</span>
+        <input type="password" id="password" autocomplete="current-password" required>
+      </label>
+      <button class="btn primary" type="submit">เข้าร้าน →</button>
+      <p class="error" id="loginError" role="alert"></p>
+    </form>
+  </section>
+
+  <!-- ตัวแก้ไข -->
+  <main class="editor" id="editor" hidden>
+    <header class="top">
+      <h1>หลังร้าน <span class="muted">· Sweet Links</span></h1>
+      <a class="btn ghost" href="/" target="_blank" rel="noopener">ดูหน้าร้าน ↗</a>
+    </header>
+
+    <section class="card">
+      <h2>รูปแบบตู้ขนม</h2>
+      <div class="modes" role="radiogroup" aria-label="รูปแบบตู้ขนม">
+        <label class="mode">
+          <input type="radio" name="mode" value="category">
+          <span class="mode-art" data-mode-art="category"></span>
+          <b>มีหมวดหมู่</b>
+          <small>ขนมวางเป็นกลุ่มตามหมวด จิ้มแล้วซูมเข้าไปดูชั้นใกล้ๆ เหมาะกับลิงก์เยอะๆ</small>
+        </label>
+        <label class="mode">
+          <input type="radio" name="mode" value="simple">
+          <span class="mode-art" data-mode-art="simple"></span>
+          <b>ไม่มีหมวดหมู่</b>
+          <small>ขนมแต่ละชิ้นคือหนึ่งลิงก์ จิ้มแล้วไปเลย เหมาะกับลิงก์น้อยๆ (ประมาณ 3–9 อัน)</small>
+        </label>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>ป้ายร้าน & โปรไฟล์</h2>
+      <div class="grid2">
+        <label class="field"><span>ชื่อร้าน (ป้ายใหญ่)</span><input data-profile="name" maxlength="40"></label>
+        <label class="field"><span>ชื่อบัญชี / คำโปรย</span><input data-profile="handle" maxlength="60"></label>
+      </div>
+      <label class="field"><span>แนะนำตัว</span><textarea data-profile="bio" rows="2" maxlength="200"></textarea></label>
+      <label class="field"><span>ลิงก์รูปโปรไฟล์ (เว้นว่าง = น้องหมีขนมปัง)</span><input data-profile="avatar" type="url" placeholder="https://..."></label>
+    </section>
+
+    <section class="card" id="catCard">
+      <div class="card-head">
+        <h2>หมวดหมู่</h2>
+        <button class="btn" type="button" id="addCat">+ เพิ่มหมวด</button>
+      </div>
+      <p class="muted small" id="catHint"></p>
+      <div class="list" id="catList"></div>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <h2>ลิงก์ (ขนมในตู้)</h2>
+        <button class="btn" type="button" id="addLink">+ เพิ่มลิงก์</button>
+      </div>
+      <div class="list" id="linkList"></div>
+    </section>
+
+    <section class="card">
+      <h2>คำทำนายจากกริ่ง</h2>
+      <label class="field"><span>บรรทัดละหนึ่งคำทำนาย</span><textarea id="fortunes" rows="6"></textarea></label>
+    </section>
+
+    <section class="card">
+      <h2>สำรองข้อมูล</h2>
+      <p class="muted small">ดาวน์โหลดเก็บไว้ หรือนำไปแทนไฟล์ <code>public/config.json</code> เป็นค่าตั้งต้นได้</p>
+      <div class="row-btns">
+        <button class="btn" type="button" id="exportBtn">ดาวน์โหลด JSON</button>
+        <label class="btn">นำเข้า JSON<input type="file" id="importFile" accept="application/json,.json" hidden></label>
+        <button class="btn ghost" type="button" id="logoutBtn">ออกจากระบบ</button>
+      </div>
+    </section>
+
+    <div class="savebar">
+      <span class="status" id="status" role="status" aria-live="polite"></span>
+      <button class="btn primary" type="button" id="saveBtn">บันทึก ♡</button>
+    </div>
+  </main>
+
+  <script src="treats.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

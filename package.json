@@ -1,0 +1,12 @@
+{
+  "name": "sweet-links",
+  "private": true,
+  "description": "ร้านขนมลิงก์ในฝัน — หน้ารวมลิงก์ตู้ขนมสไตล์การ์ตูน พร้อมหลังร้านบน Cloudflare Pages",
+  "scripts": {
+    "dev": "wrangler pages dev public --kv LINKS_KV",
+    "deploy": "wrangler pages deploy public"
+  },
+  "devDependencies": {
+    "wrangler": "^4.148.0"
+  }
+}

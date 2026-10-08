@@ -1,0 +1,38 @@
+{
+  "mode": "category",
+  "profile": {
+    "name": "SWEET LINKS",
+    "handle": "@yourname · ร้านขนมลิงก์ในฝัน",
+    "bio": "อบความฝันใหม่ทุกเช้า ☁ จิ้มขนมในตู้เพื่อไปหากันนะ",
+    "avatar": ""
+  },
+  "categories": [
+    { "id": "social", "name": "โซเชียล", "note": "มาเป็นเพื่อนกัน!", "treat": "cupcake" },
+    { "id": "content", "name": "ผลงาน / คอนเทนต์", "note": "ผลงานอบใหม่ๆ", "treat": "toast" },
+    { "id": "shop", "name": "ร้านค้า", "note": "ของน่ารักขายอยู่", "treat": "shortcake" },
+    { "id": "contact", "name": "ติดต่อ", "note": "ทักมาได้เลย~", "treat": "daifuku" }
+  ],
+  "links": [
+    { "id": "ig", "title": "Instagram", "note": "รูปน่ารักอยู่นี่!", "price": "฿0 · ฟอลเลย", "url": "https://instagram.com/", "treat": "cupcake", "category": "social" },
+    { "id": "tiktok", "title": "TikTok", "note": "คลิปฮาๆ ทุกวัน", "price": "฿0 · กดดู", "url": "https://tiktok.com/", "treat": "melonpan", "category": "social" },
+    { "id": "x", "title": "X / Twitter", "note": "บ่นเรื่อยเปื่อย", "price": "฿0 · ทักได้", "url": "https://x.com/", "treat": "bun", "category": "social" },
+    { "id": "fb", "title": "Facebook", "note": "เพจหลักจ้า", "price": "฿0 · ไลก์ที", "url": "https://facebook.com/", "treat": "croissant", "category": "social" },
+    { "id": "yt", "title": "YouTube", "note": "วิดีโอยาวๆ อุ่นๆ", "price": "฿0 · ซับเลย", "url": "https://youtube.com/", "treat": "toast", "category": "content" },
+    { "id": "portfolio", "title": "พอร์ตโฟลิโอ", "note": "งานวาดทั้งหมด", "price": "฿0 · ส่องเลย", "url": "https://example.com/", "treat": "rollcake", "category": "content" },
+    { "id": "blog", "title": "บล็อก", "note": "เล่าเรื่องเรื่อยๆ", "price": "฿0 · อ่านเลย", "url": "https://example.com/blog", "treat": "creampuff", "category": "content" },
+    { "id": "shopee", "title": "Shopee", "note": "สติกเกอร์ & ของจุกจิก", "price": "฿ · ช้อปเลย", "url": "https://shopee.co.th/", "treat": "shortcake", "category": "shop" },
+    { "id": "lazada", "title": "Lazada", "note": "มีโปรด้วยนะ", "price": "฿ · ช้อปเลย", "url": "https://lazada.co.th/", "treat": "pudding", "category": "shop" },
+    { "id": "line", "title": "LINE", "note": "แชทกันมั้ย?", "price": "฿0 · แอดเลย", "url": "https://line.me/", "treat": "daifuku", "category": "contact" },
+    { "id": "email", "title": "อีเมลหาฉัน", "note": "ส่งจดหมายมา~", "price": "฿0 · เขียนเลย", "url": "mailto:hello@example.com", "treat": "choco", "category": "contact" }
+  ],
+  "fortunes": [
+    "วันนี้จะมีเรื่องดีๆ ฟูขึ้นมาเหมือนแป้งขนมปัง",
+    "คนที่คิดถึงเธอ กำลังคิดถึงเธออยู่เหมือนกันนะ",
+    "พักก่อนก็ได้ ขนมยังต้องรอให้ขึ้นฟูเลย",
+    "เธอหวานกว่าครีมในตู้ทุกชิ้นเลย",
+    "ความพยายามของเธอกำลังอบอยู่ อีกนิดเดียวสุกแล้ว",
+    "วันนี้เหมาะกับการกินของอร่อยแบบไม่ต้องรู้สึกผิด",
+    "จะมีข่าวดีส่งมาแบบเซอร์ไพรส์ภายในสัปดาห์นี้",
+    "ยิ้มหน่อย น้องขนมในตู้ยิ้มให้อยู่นะ"
+  ]
+}
