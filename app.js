@@ -31,8 +31,8 @@ const CONFIG = {
 };
 
 /* ---------- ตัวช่วยวาดขนม (SVG เส้นดินสอ) ---------- */
-const INK = "#7b5a48";
-const S = `stroke="${INK}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"`;
+const INK = "#6b4a3a";
+const S = `stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"`;
 
 const face = (cx, cy, s = 1) => `
   <g class="face">
@@ -250,6 +250,24 @@ function renderBunting() {
     </g></svg>`;
 }
 
+// กันสาดลายทางขอบหยัก เหนือตู้ขนม
+function renderAwning() {
+  const el = $("awning");
+  const W = el.offsetWidth;
+  if (!W) return;
+  const n = Math.max(7, Math.round(W / 36)), w = W / n, r = w / 2;
+  const colors = ["#f6b8c1", "#fffaf2"];
+  let stripes = "";
+  for (let i = 0; i < n; i++) {
+    const x = (i * w).toFixed(1), x2 = ((i + 1) * w).toFixed(1);
+    stripes += `<path d="M${x} 10 L${x2} 10 L${x2} 32 A${r.toFixed(1)} ${r.toFixed(1)} 0 0 1 ${x} 32 Z" fill="${colors[i % 2]}"/>`;
+  }
+  el.innerHTML = `<svg viewBox="0 0 ${W} 52" width="${W}" height="52">
+    <g filter="url(#pencil)" stroke="${INK}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      ${stripes}<rect x="-4" y="0" width="${W + 8}" height="12" rx="6" fill="#c99366"/>
+    </g></svg>`;
+}
+
 /* ---------- ลูกเล่น ---------- */
 function burst(x, y, count = 12) {
   if (reduceMotion) return;
@@ -334,4 +352,5 @@ renderShelves();
 renderMenu();
 renderSky();
 renderBunting();
-addEventListener("resize", () => { renderShelves(); renderBunting(); });
+renderAwning();
+addEventListener("resize", () => { renderShelves(); renderBunting(); renderAwning(); });

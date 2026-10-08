@@ -4,7 +4,7 @@
   --dot: #f4d6d1;
   --text: #6e4f3f;
   --text-soft: #a3826e;
-  --frame: #8a6450;
+  --frame: #6b4a3a;
   --wood: #e6bf94;
   --wood-front: #c99366;
   --case-top: #fffaf4;
@@ -115,6 +115,12 @@ body::after {
 .pot { width: 92px; bottom: 3vh; }
 .pot-l { left: -18px; }
 .steam { animation: steam 3s ease-in-out infinite; }
+.cat-breathe { transform-box: fill-box; transform-origin: 50% 100%; animation: catnap 3.6s ease-in-out infinite; }
+@keyframes catnap { 50% { transform: scale(1.03, 1.06); } }
+.zzz text { animation: zzz 3.6s ease-in-out infinite; opacity: 0; }
+.zzz text:nth-child(2) { animation-delay: .5s; }
+.zzz text:nth-child(3) { animation-delay: 1s; }
+@keyframes zzz { 0% { opacity: 0; transform: translate(0, 4px); } 30%, 70% { opacity: .9; } 100% { opacity: 0; transform: translate(-4px, -6px); } }
 @keyframes steam { 50% { transform: translateY(-4px); opacity: .2; } }
 
 @media (min-width: 860px) {
@@ -241,30 +247,38 @@ body::after {
 .hint span:last-child { display: inline-block; animation: bob 1.4s ease-in-out infinite; }
 @keyframes bob { 50% { transform: translateY(4px); } }
 
-/* ===== ตู้กระจก ===== */
+/* ===== ร้าน: กันสาด + ตู้กระจก + เคาน์เตอร์ ===== */
+.bakery { position: relative; margin-top: 14px; }
+.awning { position: relative; z-index: 7; height: 52px; margin: 0 -10px -14px; }
+.awning svg { display: block; overflow: visible; filter: var(--scene); }
+
 .case {
   position: relative;
-  margin-top: 12px;
-  padding: 50px 14px 8px;
+  padding: 30px 14px 0;
   background: linear-gradient(180deg, var(--case-top), var(--case-bottom));
-  border-radius: 50% 50% 22px 22px / 70px 70px 22px 22px;
+  border-radius: 6px 6px 0 0;
   transition: background .6s;
 }
 .case::before, .case::after {
   content: ""; position: absolute; pointer-events: none;
-  border-radius: inherit; border: 4px solid var(--frame);
+  border-radius: inherit; border: 5px solid var(--frame);
   filter: url(#wobble);
 }
-.case::before { inset: 0; }
-.case::after { inset: 8px; border-width: 2px; opacity: .35; }
+.case::before { inset: 0; border-bottom: 0; }
+.case::after { inset: 9px 9px 0; border-width: 2px; border-bottom: 0; opacity: .3; }
 .glare {
   position: absolute; inset: 0; pointer-events: none; z-index: 6;
   border-radius: inherit; overflow: hidden;
 }
-.glare::before {
-  content: ""; position: absolute; top: -20%; bottom: -20%; left: -30%; width: 70%;
+.glare::before, .glare::after { content: ""; position: absolute; top: -20%; bottom: -20%; }
+.glare::before { /* แสงสะท้อนวิ่งผ่านกระจก */
+  left: -30%; width: 70%;
   background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.5) 33%, transparent 39%, transparent 50%, rgba(255,255,255,.3) 52%, transparent 56%);
   animation: glare 9s ease-in-out infinite;
+}
+.glare::after { /* เส้นกระจกนิ่งๆ แบบในการ์ตูน */
+  left: 52%; width: 34%;
+  background: linear-gradient(118deg, transparent 0 38%, rgba(255,255,255,.45) 38% 44%, transparent 44% 56%, rgba(255,255,255,.3) 56% 59%, transparent 59%);
 }
 @keyframes glare { 0%, 60% { transform: translateX(-60%); } 100% { transform: translateX(220%); } }
 
@@ -273,18 +287,53 @@ body::after {
   font-family: "Itim", sans-serif; font-size: 14px; color: var(--text-soft);
   animation: giggle 2.6s ease-in-out infinite;
 }
-.g1 { left: 18%; top: 24px; }
-.g2 { right: 16%; top: 30px; animation-delay: -1.3s; }
+.g1 { left: 14%; top: 34px; }
+.g2 { right: 12%; top: 40px; animation-delay: -1.3s; }
 @keyframes giggle { 0%, 100% { transform: translateY(0) rotate(-6deg); } 50% { transform: translateY(-5px) rotate(6deg); } }
 
 .shelf { position: relative; }
 .row { display: flex; justify-content: center; align-items: flex-end; position: relative; z-index: 2; margin-bottom: -10px; }
 .plank {
-  height: 16px; margin: 0 -4px 22px;
-  border: 2.5px solid var(--frame); border-radius: 6px;
-  background: linear-gradient(var(--wood) 0 50%, var(--wood-front) 50%);
+  height: 13px; margin: 0 -4px 22px;
+  border: 3px solid var(--frame); border-radius: 5px;
+  background: linear-gradient(var(--wood) 0 45%, var(--wood-front) 45%);
   box-shadow: 0 9px 10px -6px var(--shade);
   filter: url(#wobble);
+}
+.shelf:last-child .plank { margin-bottom: 34px; }
+
+.counter { position: relative; z-index: 8; margin: 0 -12px; }
+.counter-top {
+  position: relative; height: 40px;
+  background: linear-gradient(180deg, var(--case-top) -40%, var(--wood) 70%);
+  border: 4px solid var(--frame); border-bottom: 0;
+  border-radius: 12px 12px 0 0;
+}
+.counter-item, .bell { position: absolute; bottom: 8px; }
+.ivy { left: 6px; width: 76px; }
+.cloche { right: 6px; width: 78px; }
+.cloche .dome { transition: fill-opacity .3s; }
+.bell { left: 50%; transform: translateX(-50%); padding: 0; background: none; border: 0; cursor: pointer; }
+.bell-art { display: block; width: 66px; height: 58px; transform-origin: 50% 20%; filter: drop-shadow(0 0 10px var(--glow)); }
+.bell:hover .bell-art { animation: wiggle .5s ease; }
+.bell.ring .bell-art { animation: ring .5s ease; }
+.bell:focus-visible { outline: 2.5px dashed var(--frame); outline-offset: 2px; border-radius: 12px; }
+.counter-body {
+  display: grid; place-items: center;
+  height: 118px;
+  background: repeating-linear-gradient(90deg, var(--panel) 0 40px, var(--panel-line) 40px 43px);
+  border: 4px solid var(--frame); border-radius: 0 0 16px 16px;
+  box-shadow: inset 0 12px 0 var(--wood-front), inset 0 15px 0 var(--frame), inset 0 -18px 0 var(--wood-front), 0 10px 0 -3px var(--shade);
+  transition: background .6s;
+}
+.chalk-sign {
+  position: relative;
+  padding: 7px 14px 8px;
+  background: var(--chalk); color: var(--chalk-text);
+  border: 3px solid var(--rail); border-radius: 6px;
+  font-family: "Itim", sans-serif; font-size: 14px;
+  transform: rotate(-2.5deg);
+  box-shadow: 2px 3px 0 var(--shade);
 }
 
 /* ===== ขนมแต่ละชิ้น (= ลิงก์) ===== */
@@ -366,52 +415,43 @@ body::after {
 }
 .treat:hover .bubble, .treat:focus-visible .bubble { opacity: 1; transform: translate(-50%, 0) scale(1); }
 
-/* ===== เคาน์เตอร์ + กริ่ง ===== */
-.counter {
-  position: relative;
-  display: flex; justify-content: center;
-  margin: -2px 6px 0; padding: 14px 0 6px;
-  background: linear-gradient(var(--wood) 0 14px, transparent 14px);
-  border-radius: 0 0 20px 20px;
-}
-.bell {
-  display: flex; flex-direction: column; align-items: center;
-  background: none; border: 0; padding: 4px 10px; cursor: pointer;
-  font: inherit; color: var(--text-soft);
-}
-.bell-art { width: 66px; height: 58px; transform-origin: 50% 20%; filter: drop-shadow(0 0 10px var(--glow)); }
-.bell:hover .bell-art { animation: wiggle .5s ease; }
-.bell.ring .bell-art { animation: ring .5s ease; }
-.bell-label { font-family: "Itim", sans-serif; font-size: 14px; }
-.bell:focus-visible { outline: 2.5px dashed var(--frame); outline-offset: 2px; border-radius: 12px; }
 @keyframes wiggle { 25% { transform: rotate(-8deg); } 75% { transform: rotate(8deg); } }
 @keyframes ring {
   15% { transform: rotate(-18deg); } 30% { transform: rotate(16deg); } 45% { transform: rotate(-12deg); }
   60% { transform: rotate(8deg); } 75% { transform: rotate(-4deg); } 100% { transform: rotate(0); }
 }
 
-/* ===== เมนูวันนี้ ===== */
-.menu {
+/* ===== โต๊ะคาเฟ่ + เมนูวันนี้ ===== */
+.cafe-table { position: relative; margin-top: 46px; }
+.cafe-table h2 {
+  width: fit-content; margin: 0 auto 44px; padding: 5px 18px 6px;
+  font-family: "Itim", sans-serif; font-weight: 400; font-size: 21px;
+  background: var(--paper); border-radius: 999px;
+  box-shadow: 2px 3px 0 var(--shade);
+  transform: rotate(-2deg);
+}
+.tabletop {
   position: relative;
-  margin-top: 40px; padding: 26px 0 30px;
-  background: repeating-linear-gradient(90deg, var(--stripe-bg) 0 24px, var(--stripe) 24px 31px);
-  border-radius: 28px;
+  padding: 18px 14px 30px;
+  background: var(--wood);
+  border: 4px solid var(--frame); border-radius: 30px;
+  box-shadow: inset 0 -14px 0 var(--wood-front), 0 8px 0 -2px var(--shade);
   transition: background .6s;
 }
-.menu::before {
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  border: 3px solid var(--frame); border-radius: inherit;
-  filter: url(#wobble);
+.table-item { position: absolute; bottom: calc(100% - 16px); filter: var(--scene); }
+.cup { left: 20px; width: 66px; }
+.cake { right: 20px; width: 76px; }
+.placemat {
+  position: relative; z-index: 1;
+  padding: 18px 8px;
+  background: repeating-linear-gradient(90deg, var(--stripe-bg) 0 22px, var(--stripe) 22px 29px);
+  border: 3px solid var(--frame); border-radius: 22px;
+  transition: background .6s;
 }
-.menu h2 {
-  margin: 0 0 14px; text-align: center;
-  font-family: "Itim", sans-serif; font-weight: 400; font-size: 22px;
-  transform: rotate(-3deg);
-  text-shadow: 0 0 6px var(--stripe-bg), 0 0 12px var(--stripe-bg);
-}
+.table-leg svg { display: block; width: 150px; margin: -4px auto 0; filter: var(--scene); }
 .menu-oval {
   position: relative;
-  margin: 0 14px; padding: 38px 30px;
+  margin: 0 4px; padding: 34px 28px;
   background: var(--paper);
   border-radius: 50% / 38%;
   transition: background .6s;
