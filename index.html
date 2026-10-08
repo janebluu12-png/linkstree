@@ -30,6 +30,129 @@
     </defs>
   </svg>
 
+  <!-- ฉากคาเฟ่ด้านหลัง -->
+  <div class="cafe" aria-hidden="true">
+    <div class="wall"></div>
+    <div class="wainscot"></div>
+    <div class="floor"></div>
+    <div class="bunting" id="bunting"></div>
+
+    <!-- หน้าต่างโค้ง + ม่าน -->
+    <svg class="cafe-art win" viewBox="0 0 220 280">
+      <defs><clipPath id="glassClip"><path d="M40 246 L40 108 Q40 40 110 40 Q180 40 180 108 L180 246 Z"/></clipPath></defs>
+      <g filter="url(#pencil)" stroke="#7b5a48" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M28 256 L28 106 Q28 28 110 28 Q192 28 192 106 L192 256 Z" fill="#e6bf94"/>
+        <path class="glass" d="M40 246 L40 108 Q40 40 110 40 Q180 40 180 108 L180 246 Z" fill="#cfe3f7"/>
+        <g clip-path="url(#glassClip)" stroke="none">
+          <circle class="sun" cx="148" cy="84" r="16" fill="#ffe08a"/>
+          <g class="moon"><circle cx="148" cy="84" r="15" fill="#fff4c9"/><circle cx="156" cy="78" r="13" class="moon-cut" fill="#2d2a55"/></g>
+          <g class="clouds" fill="#fff">
+            <path d="M52 140 Q50 126 64 126 Q70 114 84 120 Q98 116 100 130 Q110 132 106 142 Z"/>
+            <path d="M120 196 Q118 184 130 184 Q136 174 148 180 Q160 176 162 188 Q172 190 168 200 Z"/>
+            <path d="M44 214 Q44 204 54 205 Q60 198 68 204 Q76 202 76 212 Z" opacity=".8"/>
+          </g>
+          <path d="M40 246 Q80 222 120 232 Q156 222 180 230 L180 250 L40 250 Z" fill="#bfe0b8"/>
+        </g>
+        <path d="M110 40 L110 246 M40 150 L180 150" fill="none" stroke-width="4"/>
+        <!-- ม่าน -->
+        <path d="M22 30 Q50 28 60 34 Q66 90 50 140 Q60 170 62 250 L22 250 Z" fill="#f6c2c8"/>
+        <path d="M198 30 Q170 28 160 34 Q154 90 170 140 Q160 170 158 250 L198 250 Z" fill="#f6c2c8"/>
+        <path d="M44 130 Q56 142 66 134 M176 130 Q164 142 154 134" fill="none" stroke="#e98a96" stroke-width="3.4"/>
+        <path d="M14 26 Q40 44 66 26 Q92 44 110 26 Q128 44 154 26 Q180 44 206 26 L206 16 L14 16 Z" fill="#fbd7dc"/>
+        <rect x="10" y="10" width="200" height="8" rx="4" fill="#c99366"/>
+        <!-- ขอบหน้าต่าง + ของบนขอบ -->
+        <rect x="16" y="252" width="188" height="12" rx="4" fill="#d9a877"/>
+        <path d="M58 252 L62 234 L80 234 L84 252 Z" fill="#e7a07a"/>
+        <path d="M71 234 Q64 214 70 206 Q74 214 71 234 Q78 216 84 214 Q82 226 71 234" fill="#9ccf8f"/>
+        <path d="M140 252 L142 236 Q154 233 166 236 L168 252 Z" fill="#fffaf2"/>
+        <path d="M167 240 Q176 241 167 248" fill="none"/>
+        <path class="steam" d="M150 228 Q146 220 152 214 Q156 208 152 202 M160 228 Q156 220 162 214" fill="none" stroke-width="2" opacity=".55"/>
+      </g>
+    </svg>
+
+    <!-- ต้นไม้แขวน -->
+    <svg class="cafe-art hang hang-l" viewBox="0 0 90 200">
+      <g filter="url(#pencil)" stroke="#7b5a48" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M45 0 L45 96 M45 96 L22 126 M45 96 L68 126" fill="none" stroke-width="1.8"/>
+        <path d="M20 124 L70 124 L64 150 Q45 156 26 150 Z" fill="#f4b6bf"/>
+        <path d="M28 132 Q45 136 62 132" fill="none" stroke="#fff" stroke-opacity=".7"/>
+        <g fill="#a5d39a">
+          <path d="M28 150 Q20 168 26 186"/><ellipse cx="22" cy="164" rx="7" ry="4" transform="rotate(-50 22 164)"/><ellipse cx="28" cy="182" rx="7" ry="4" transform="rotate(40 28 182)"/>
+          <path d="M62 150 Q72 166 66 180"/><ellipse cx="70" cy="162" rx="7" ry="4" transform="rotate(50 70 162)"/><ellipse cx="64" cy="178" rx="6" ry="3.6" transform="rotate(-40 64 178)"/>
+          <ellipse cx="34" cy="122" rx="9" ry="5" transform="rotate(-25 34 122)"/><ellipse cx="56" cy="120" rx="9" ry="5" transform="rotate(25 56 120)"/><ellipse cx="45" cy="116" rx="6" ry="8"/>
+        </g>
+      </g>
+    </svg>
+
+    <!-- กระดานเมนู -->
+    <svg class="cafe-art board" viewBox="0 0 200 230">
+      <g filter="url(#pencil)" stroke="#7b5a48" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M100 6 L40 52 M100 6 L160 52" fill="none" stroke-width="1.8"/>
+        <circle cx="100" cy="6" r="4" fill="#c99366"/>
+        <rect x="14" y="48" width="172" height="176" rx="10" fill="#c99366"/>
+        <rect x="24" y="58" width="152" height="156" rx="6" fill="#4e3d37"/>
+        <g fill="#fff6ea" stroke="none" font-family="Itim, sans-serif" text-anchor="middle">
+          <text x="100" y="88" font-size="17">TODAY'S MENU</text>
+          <text x="100" y="118" font-size="14">♡ ลาเต้ฟองนุ่ม</text>
+          <text x="100" y="140" font-size="14">♡ ช็อตเค้กสตรอว์</text>
+          <text x="100" y="162" font-size="14">♡ ครัวซองต์อุ่นๆ</text>
+        </g>
+        <g fill="none" stroke="#fff6ea" stroke-width="1.8" opacity=".85">
+          <path d="M44 96 Q100 102 156 96"/>
+          <path d="M84 178 L86 200 L110 200 L112 178 Z"/><path d="M112 184 Q122 186 112 194"/>
+          <path d="M92 174 Q90 168 94 164 M102 174 Q100 168 104 164"/>
+          <path d="M40 200 l4 -6 l4 6 l-4 6 Z M154 182 l3 -5 l3 5 l-3 5 Z"/>
+        </g>
+      </g>
+    </svg>
+
+    <!-- ชั้นวางของบนผนัง -->
+    <svg class="cafe-art wall-shelf" viewBox="0 0 240 120">
+      <g filter="url(#pencil)" stroke="#7b5a48" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M20 46 L20 18 Q20 8 32 8 L52 8 Q64 8 64 18 L64 46 Z" fill="#fff4e0" fill-opacity=".85"/>
+        <rect x="24" y="2" width="36" height="8" rx="3" fill="#e2b98d"/>
+        <g fill="#c98a4d"><circle cx="34" cy="28" r="5"/><circle cx="48" cy="22" r="5"/><circle cx="46" cy="38" r="5"/></g>
+        <path d="M84 46 L86 30 L108 30 L110 46 Z" fill="#c9d7ee"/><path d="M110 34 Q118 36 110 42" fill="none"/>
+        <path d="M88 30 L90 16 L106 16 L108 30 Z" fill="#f6c2c8"/><path d="M107 19 Q114 21 107 27" fill="none"/>
+        <path d="M134 46 L134 22 Q134 14 144 14 L160 14 Q170 14 170 22 L170 46 Z" fill="#fde29a" fill-opacity=".9"/>
+        <path d="M134 26 L170 26" fill="none"/>
+        <path d="M190 46 L194 30 L218 30 L222 46 Z" fill="#e7a07a"/>
+        <g fill="#a5d39a"><ellipse cx="200" cy="24" rx="8" ry="4" transform="rotate(-35 200 24)"/><ellipse cx="214" cy="22" rx="8" ry="4" transform="rotate(30 214 22)"/><ellipse cx="207" cy="16" rx="4" ry="8"/>
+          <path d="M218 34 Q230 50 224 72"/><ellipse cx="228" cy="52" rx="6" ry="3.4" transform="rotate(60 228 52)"/><ellipse cx="223" cy="68" rx="6" ry="3.4" transform="rotate(-30 223 68)"/></g>
+        <rect x="6" y="46" width="228" height="12" rx="4" fill="#e6bf94"/>
+        <path d="M40 58 L40 76 L58 58 M200 58 L200 76 L182 58" fill="none"/>
+      </g>
+    </svg>
+
+    <!-- กระถางต้นไม้บนพื้น -->
+    <svg class="cafe-art pot pot-l" viewBox="0 0 120 170">
+      <g filter="url(#pencil)" stroke="#7b5a48" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round">
+        <g fill="#9ccf8f">
+          <path d="M60 110 Q40 70 18 58 Q20 84 60 110 Z"/><path d="M60 110 Q82 64 106 50 Q102 82 60 110 Z"/>
+          <path d="M60 110 Q50 50 62 14 Q78 54 60 110 Z" fill="#b4dca6"/>
+          <path d="M60 110 Q30 96 8 100 Q30 116 60 110 Z" fill="#b4dca6"/><path d="M60 110 Q92 94 114 98 Q92 118 60 110 Z"/>
+        </g>
+        <path d="M30 112 L90 112 L82 164 Q60 170 38 164 Z" fill="#e7a07a"/>
+        <rect x="26" y="106" width="68" height="12" rx="4" fill="#ecb08c"/>
+        <path d="M44 132 Q60 138 76 132" fill="none" stroke="#fff" stroke-opacity=".6"/>
+      </g>
+    </svg>
+
+    <!-- โต๊ะคาเฟ่ + กาแฟ -->
+    <svg class="cafe-art table" viewBox="0 0 160 190">
+      <g filter="url(#pencil)" stroke="#7b5a48" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round">
+        <path class="steam" d="M70 40 Q64 30 72 22 Q78 14 72 6 M86 40 Q80 30 88 22" fill="none" stroke-width="2" opacity=".5"/>
+        <path d="M60 46 L64 70 Q78 76 92 70 L96 46 Z" fill="#fffaf2"/><path d="M95 52 Q108 54 94 64" fill="none"/>
+        <ellipse cx="78" cy="46" rx="18" ry="5" fill="#c98a4d"/>
+        <ellipse cx="78" cy="74" rx="26" ry="5" fill="#fbd7dc"/>
+        <path d="M112 74 Q108 62 118 60 Q130 60 128 74 Z" fill="#f1bf86"/><circle cx="120" cy="58" r="4" fill="#f26d72"/>
+        <ellipse cx="80" cy="82" rx="72" ry="10" fill="#e6bf94"/>
+        <path d="M76 92 L74 172 M84 92 L86 172" fill="none" stroke-width="3"/>
+        <path d="M46 182 Q80 166 114 182" fill="none" stroke-width="3"/>
+      </g>
+    </svg>
+  </div>
+
   <div class="dreamy" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
   <div class="sky" id="sky" aria-hidden="true"></div>
 

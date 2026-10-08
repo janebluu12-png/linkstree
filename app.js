@@ -233,6 +233,23 @@ function renderSky() {
   sky.innerHTML = html;
 }
 
+// ธงราวห้อยข้ามผนังคาเฟ่ — คำนวณจำนวนธงตามความกว้างจอ
+function renderBunting() {
+  const W = innerWidth, sag = 34, n = Math.max(6, Math.round(W / 46));
+  const colors = ["#f6c2c8", "#fde29a", "#c9d7ee", "#fffaf2"];
+  const y = (t) => 6 + 4 * sag * t * (1 - t);
+  let flags = "";
+  for (let i = 0; i < n; i++) {
+    const t0 = (i + 0.15) / n, t1 = (i + 0.85) / n, tm = (t0 + t1) / 2;
+    const x0 = t0 * W, x1 = t1 * W, xm = tm * W;
+    flags += `<path d="M${x0.toFixed(1)} ${y(t0).toFixed(1)} L${xm.toFixed(1)} ${(y(tm) + 26).toFixed(1)} L${x1.toFixed(1)} ${y(t1).toFixed(1)} Z" fill="${colors[i % colors.length]}"/>`;
+  }
+  $("bunting").innerHTML = `<svg class="cafe-art" viewBox="0 0 ${W} 80" width="${W}" height="80">
+    <g filter="url(#pencil)" stroke="#7b5a48" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round">
+      <path d="M0 6 Q${W / 2} ${6 + sag * 2} ${W} 6" fill="none" stroke-width="1.8"/>${flags}
+    </g></svg>`;
+}
+
 /* ---------- ลูกเล่น ---------- */
 function burst(x, y, count = 12) {
   if (reduceMotion) return;
@@ -316,4 +333,5 @@ renderProfile();
 renderShelves();
 renderMenu();
 renderSky();
-addEventListener("resize", renderShelves);
+renderBunting();
+addEventListener("resize", () => { renderShelves(); renderBunting(); });
