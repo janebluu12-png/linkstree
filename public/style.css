@@ -19,10 +19,11 @@
   --star: #f5c86a;
   --blob1: #ffd6dc; --blob2: #ffe7c2; --blob3: #d7e4ff; --blob4: #eadcff;
   --shade: rgba(110, 70, 40, .28);
-  --wall: #fdf1ea; --wall-stripe: #f8e2dc;
+  --wall: #fbefe3; --wall-light: #fffaf3; --wall-low: #f6e3d3; --wall-stripe: #f8e2dc;
   --panel: #f1d4b4; --panel-line: #d9b08a; --rail: #c99366;
   --tile-a: #fbe9e4; --tile-b: #f2cfc8;
   --scene: none;
+  --sign: #7a5644; --frame-soft: #e6c9ad;
   --glass: rgba(255, 252, 248, .78); --frame-wood: #9b7358; --shelf-top: #f1dcc0;
   --cu-top: #dcebf3; --cu-bottom: #eef5ee; --cu-wood: #f2d3a6; --cu-wood-front: #e2b57f;
   color-scheme: light;
@@ -38,10 +39,11 @@
     --glow: rgba(255, 214, 150, .4); --star: #ffeaa8;
     --blob1: #6b4c8f; --blob2: #3f5a8f; --blob3: #8a4f7a; --blob4: #4a3f86;
     --shade: rgba(0, 0, 0, .35);
-    --wall: #2b2545; --wall-stripe: #322a50;
+    --wall: #2b2545; --wall-light: #3a3260; --wall-low: #231e3a; --wall-stripe: #322a50;
     --panel: #4a3b58; --panel-line: #3a2e48; --rail: #6e5050;
     --tile-a: #3a3158; --tile-b: #2f284a;
     --scene: brightness(.68) saturate(.85);
+    --sign: #f7e3cf; --frame-soft: #5a4b7a; --streak: .12;
     --glass: rgba(52, 44, 84, .82); --frame-wood: #b48c72; --shelf-top: #7a6070;
     --cu-top: #2c2a52; --cu-bottom: #3a3360; --cu-wood: #8f7068; --cu-wood-front: #6f5050;
     color-scheme: dark;
@@ -56,10 +58,11 @@
   --glow: rgba(255, 214, 150, .4); --star: #ffeaa8;
   --blob1: #6b4c8f; --blob2: #3f5a8f; --blob3: #8a4f7a; --blob4: #4a3f86;
   --shade: rgba(0, 0, 0, .35);
-  --wall: #2b2545; --wall-stripe: #322a50;
+  --wall: #2b2545; --wall-light: #3a3260; --wall-low: #231e3a; --wall-stripe: #322a50;
   --panel: #4a3b58; --panel-line: #3a2e48; --rail: #6e5050;
   --tile-a: #3a3158; --tile-b: #2f284a;
   --scene: brightness(.68) saturate(.85);
+  --sign: #f7e3cf; --frame-soft: #5a4b7a; --streak: .12;
   --glass: rgba(52, 44, 84, .82); --frame-wood: #b48c72; --shelf-top: #7a6070;
   --cu-top: #2c2a52; --cu-bottom: #3a3360; --cu-wood: #8f7068; --cu-wood-front: #6f5050;
   color-scheme: dark;
@@ -87,39 +90,22 @@ body::after {
 }
 .defs { position: absolute; }
 
-/* ===== ฉากคาเฟ่ ===== */
+/* ===== ฉากคาเฟ่ =====
+   ผนังเรียบแบบร้านในรูปอ้างอิง ของตกแต่งอยู่แค่ในที่ว่างข้างๆ (จอกว้าง) ไม่ทับเนื้อหา */
 .cafe { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
 .wall {
   position: absolute; inset: 0;
-  background: repeating-linear-gradient(90deg, var(--wall) 0 30px, var(--wall-stripe) 30px 38px);
+  background:
+    radial-gradient(90% 60% at 50% 0%, var(--wall-light), transparent 70%),
+    linear-gradient(180deg, var(--wall) 0%, var(--wall-low) 100%);
   transition: background .6s;
 }
-.wainscot {
-  position: absolute; left: 0; right: 0; bottom: 9vh; height: 22vh;
-  background: repeating-linear-gradient(90deg, var(--panel) 0 44px, var(--panel-line) 44px 47px);
-  border-top: 10px solid var(--rail);
-  box-shadow: 0 -3px 0 #7b5a4833, inset 0 6px 8px -4px rgba(0, 0, 0, .12);
-  transition: background .6s;
-}
-.floor {
-  position: absolute; left: 0; right: 0; bottom: 0; height: 9vh;
-  background: repeating-conic-gradient(var(--tile-a) 0 25%, var(--tile-b) 0 50%) 0 0 / 44px 44px;
-  border-top: 3px solid #7b5a4866;
-}
-.bunting { position: absolute; left: 0; right: 0; top: 0; }
+.bunting { position: absolute; left: 0; right: 0; top: 0; z-index: 1; pointer-events: none; overflow: hidden; }
 .bunting svg { display: block; }
-.cafe-art { position: absolute; display: block; overflow: visible; filter: var(--scene); transition: filter .6s; }
-.bunting .cafe-art { position: static; }
-
-/* หน้าต่าง: อยู่หลังโปรไฟล์บนมือถือ, ชิดซ้ายบนจอใหญ่ */
-.win { width: min(300px, 80vw); left: 50%; top: 34px; transform: translateX(-50%); opacity: .9; }
+.cafe-art { position: absolute; display: none; overflow: visible; filter: var(--scene); transition: filter .6s; }
+.bunting .cafe-art { position: static; display: block; }
 .glass { transition: fill .6s; }
 .moon { display: none; }
-.hang { width: 64px; top: 0; }
-.hang-l { left: 4px; }
-.board, .wall-shelf, .table { display: none; }
-.pot { width: 92px; bottom: 3vh; }
-.pot-l { left: -18px; }
 .steam { animation: steam 3s ease-in-out infinite; }
 .cat-breathe { transform-box: fill-box; transform-origin: 50% 100%; animation: catnap 3.6s ease-in-out infinite; }
 @keyframes catnap { 50% { transform: scale(1.03, 1.06); } }
@@ -128,18 +114,9 @@ body::after {
 .zzz text:nth-child(3) { animation-delay: 1s; }
 @keyframes zzz { 0% { opacity: 0; transform: translate(0, 4px); } 30%, 70% { opacity: .9; } 100% { opacity: 0; transform: translate(-4px, -6px); } }
 @keyframes steam { 50% { transform: translateY(-4px); opacity: .2; } }
-
-@media (min-width: 860px) {
-  .win { width: 250px; left: 5%; top: 90px; transform: none; opacity: 1; }
-  .hang-l { left: auto; right: 30%; width: 80px; }
-  .board { display: block; width: 180px; right: 6%; top: 110px; transform: rotate(2deg); }
-  .wall-shelf { display: block; width: 230px; left: 4%; top: 430px; }
-  .table { display: block; width: 150px; right: 7%; bottom: 5vh; }
-  .pot { width: 120px; }
-  .pot-l { left: 3%; }
-}
-@media (min-width: 860px) and (max-height: 760px) {
-  .wall-shelf { display: none; }
+@media (min-width: 1100px) {
+  .win { display: block; width: 230px; left: calc(50% - 590px); top: 140px; }
+  .board { display: block; width: 176px; right: calc(50% - 570px); top: 180px; transform: rotate(2deg); }
 }
 
 /* กลางคืน: ท้องฟ้านอกหน้าต่างมืด มีพระจันทร์ */
@@ -158,7 +135,7 @@ body::after {
 .dreamy { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
 .dreamy span {
   position: absolute; width: 46vmax; height: 46vmax; border-radius: 50%;
-  filter: blur(70px); opacity: .32;
+  filter: blur(80px); opacity: .22;
   animation: drift 22s ease-in-out infinite alternate;
 }
 .dreamy span:nth-child(1) { background: var(--blob1); left: -14vmax; top: -10vmax; }
@@ -182,79 +159,54 @@ body::after {
 /* ===== หน้าร้าน ===== */
 .shop {
   position: relative; z-index: 2;
-  max-width: 520px; margin: 0 auto;
-  padding: 36px 16px 48px;
+  max-width: 560px; margin: 0 auto;
+  padding: 70px 16px 48px;
 }
 
-/* โปรไฟล์ */
+/* โปรไฟล์ — เรียบๆ ให้ป้ายร้านเป็นพระเอก */
 .profile { text-align: center; }
 .avatar {
   position: relative;
-  width: 118px; height: 118px; margin: 18px auto 6px;
+  width: 96px; height: 96px; margin: 0 auto 14px;
   border-radius: 50%;
   background: var(--paper);
-  display: grid; place-items: center;
+  border: 3px solid var(--frame);
+  box-shadow: 0 0 0 6px var(--wall-light), 0 0 0 8.5px var(--frame-soft), 3px 6px 0 6px var(--shade);
+  display: grid; place-items: center; overflow: hidden;
   animation: float 5s ease-in-out infinite;
 }
-.avatar::before {
-  content: ""; position: absolute; inset: -4px;
-  border: 3px dashed var(--frame); border-radius: 50%;
-  filter: url(#wobble);
-  animation: spin 40s linear infinite;
-}
-.avatar::after { /* ก้อนเมฆเล็กๆ ข้างรูป */
-  content: "☁"; position: absolute; right: -26px; top: 4px;
-  font-size: 30px; color: var(--paper);
-  text-shadow: 0 0 0 var(--frame), 1px 1px 0 var(--frame), -1px -1px 0 var(--frame);
-  animation: float 4s ease-in-out infinite reverse;
-}
-.avatar .treat-art { width: 92px; height: 92px; filter: drop-shadow(0 0 12px var(--glow)); }
-.avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-@keyframes float { 50% { transform: translateY(-7px); } }
-@keyframes spin { to { transform: rotate(360deg); } }
+.avatar .treat-art { width: 82px; height: 82px; margin-top: 6px; filter: drop-shadow(0 0 12px var(--glow)); }
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+@keyframes float { 50% { transform: translateY(-6px); } }
 
 .sign {
-  margin: 10px 0 0;
-  font-family: "Itim", "Mali", sans-serif; font-weight: 400;
-  font-size: clamp(34px, 10vw, 46px);
-  letter-spacing: .06em; line-height: 1.1;
-  color: var(--text);
-  text-shadow: 0 0 10px var(--wall), 2px 2px 0 var(--paper), 3.5px 3px 0 rgba(123, 90, 72, .25);
-}
-.handle {
-  display: inline-block; margin: 6px 0 12px; padding: 2px 12px;
-  font-size: 14px; color: var(--text-soft);
-  background: var(--paper); border-radius: 999px; box-shadow: 1px 2px 0 var(--shade);
-}
-.note {
   position: relative; display: inline-block;
-  max-width: 340px; margin: 4px auto 0;
-  padding: 14px 18px 12px;
-  background: var(--paper);
-  border-radius: 4px 14px 6px 16px;
-  box-shadow: 2px 4px 0 var(--shade);
-  transform: rotate(-1.6deg);
-  font-size: 15px; line-height: 1.6;
+  margin: 0;
+  font-family: "Itim", "Mali", sans-serif; font-weight: 400;
+  font-size: clamp(36px, 11vw, 54px);
+  letter-spacing: .08em; line-height: 1.05;
+  color: var(--sign);
+  text-shadow: 1px 1px 0 var(--sign), 3px 4px 0 var(--shade);
 }
-.note::before { /* เทปวาชิ */
-  content: ""; position: absolute; left: 50%; top: -10px;
-  width: 74px; height: 20px;
-  transform: translateX(-50%) rotate(3deg);
-  background: repeating-linear-gradient(45deg, rgba(244, 167, 180, .75) 0 6px, rgba(255, 220, 228, .75) 6px 12px);
+.sign::before, .sign::after {
+  content: "✦"; position: absolute; color: var(--star);
+  text-shadow: none; letter-spacing: 0;
+  animation: twinkle 3.4s ease-in-out infinite;
 }
+.sign::before { left: -26px; top: -6px; font-size: 20px; }
+.sign::after { right: -24px; bottom: 2px; font-size: 15px; animation-delay: -1.6s; }
+.handle { margin: 10px 0 0; font-size: 14px; color: var(--text-soft); letter-spacing: .02em; }
+.note { max-width: 34ch; margin: 10px auto 0; font-size: 15px; line-height: 1.65; color: var(--text); }
 
 .hint {
-  width: fit-content; max-width: 100%;
-  margin: 30px auto 4px; padding: 4px 16px; text-align: center;
-  font-family: "Itim", sans-serif; font-size: 16px; color: var(--text-soft);
-  background: var(--paper); border-radius: 999px; box-shadow: 1px 2px 0 var(--shade);
-  transform: rotate(1deg);
+  margin: 30px 0 0; text-align: center;
+  font-family: "Itim", sans-serif; font-size: 15px; color: var(--text-soft);
 }
 .hint span:last-child { display: inline-block; animation: bob 1.4s ease-in-out infinite; }
 @keyframes bob { 50% { transform: translateY(4px); } }
 
 /* ===== ตู้ขนมมุมเฉียง + เคาน์เตอร์ ===== */
-.display { position: relative; margin: 18px calc((100% - min(820px, 100vw - 32px)) / 2) 0; transition: transform .5s cubic-bezier(.5, 0, .3, 1), opacity .45s, filter .45s; }
+.display { position: relative; margin: 62px calc((100% - min(820px, 100vw - 32px)) / 2) 0; transition: transform .5s cubic-bezier(.5, 0, .3, 1), opacity .45s, filter .45s; }
 body.zoomed .display { transform: scale(1.9); opacity: 0; filter: blur(6px); }
 
 /* เคาน์เตอร์ไม้ด้านซ้าย (หลังตู้) แบบในรูปอ้างอิง */
@@ -273,7 +225,7 @@ body.zoomed .display { transform: scale(1.9); opacity: 0; filter: blur(6px); }
 
 .case {
   position: relative; z-index: 1;
-  padding: 64px 40px 0 44px;
+  padding: 44px 40px 0 44px;
   min-height: 260px;
 }
 .case-back, .case-front { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
@@ -281,9 +233,14 @@ body.zoomed .display { transform: scale(1.9); opacity: 0; filter: blur(6px); }
 .case-front { z-index: 6; }
 .glass-fill { fill: var(--glass); transition: fill .6s; }
 .frame { stroke: var(--frame-wood); stroke-width: 8; }
-.glass-edge { stroke: #fff; stroke-opacity: .75; stroke-width: 2.5; }
-.streak { fill: #fff; opacity: .45; }
-.streak.thin { opacity: .35; }
+.glass-edge { stroke: #fff; stroke-opacity: calc(var(--streak, .7) + .05); stroke-width: 2.5; }
+.streak { fill: #fff; opacity: var(--streak, .7); }
+.streak.thin { opacity: calc(var(--streak, .7) * .7); }
+.case-cat { position: absolute; z-index: 7; width: 92px; right: 16%; top: -50px; pointer-events: none; overflow: visible; filter: var(--scene); }
+@media (min-width: 1100px) {
+  .case-cat { display: none; }
+  .display { margin-top: 28px; }
+}
 .shelves { position: relative; z-index: 2; }
 .empty { text-align: center; padding: 40px 10px; font-family: "Itim", sans-serif; color: var(--text-soft); }
 
@@ -324,7 +281,7 @@ body.zoomed .display { transform: scale(1.9); opacity: 0; filter: blur(6px); }
 .bell:focus-visible { outline: 2.5px dashed var(--frame); outline-offset: 2px; border-radius: 12px; }
 .counter-body {
   display: grid; place-items: center;
-  height: 96px;
+  height: 76px;
   background: repeating-linear-gradient(90deg, var(--panel) 0 40px, var(--panel-line) 40px 43px);
   border: 4px solid var(--frame); border-radius: 0 0 16px 16px;
   box-shadow: inset 0 12px 0 var(--wood-front), inset 0 15px 0 var(--frame), inset 0 -16px 0 var(--wood-front), 0 10px 0 -3px var(--shade);
@@ -482,7 +439,7 @@ body.zoomed .display { transform: scale(1.9); opacity: 0; filter: blur(6px); }
   text-decoration: underline wavy #f4a7b4; text-underline-offset: 4px;
 }
 .menu-list a:focus-visible { outline: none; }
-.menu-oval.by-cat { border-radius: 36px; padding: 24px 22px; }
+.menu-oval, .menu-oval.by-cat { border-radius: 36px; padding: 24px 22px; }
 .menu-group + .menu-group { margin-top: 14px; padding-top: 12px; border-top: 2px dashed var(--panel-line); }
 .menu-group h3 { margin: 0 0 8px; font-family: "Itim", sans-serif; font-weight: 400; font-size: 17px; color: var(--text-soft); }
 @media (max-width: 380px) {
@@ -649,4 +606,5 @@ body.zoomed { overflow: hidden; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 
-.group .tag b { white-space: normal; overflow: visible; }
+.group .tag b { font-size: 13px; }
+.group-art .treat-art { max-width: 120px; }

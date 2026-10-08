@@ -66,7 +66,7 @@ let lastLayout = "";
 function renderCase() {
   const inner = $("case").clientWidth - 70;
   const cat = isCategoryMode();
-  const perShelf = cat ? (inner >= 560 ? 3 : inner >= 270 ? 2 : 1) : (inner >= 620 ? 5 : inner >= 440 ? 4 : 3);
+  const perShelf = cat ? (inner >= 270 ? 2 : 1) : (inner >= 620 ? 5 : inner >= 440 ? 4 : 3);
   const key = `${cat}-${perShelf}`;
   if (key === lastLayout) return fitCase();
   lastLayout = key;
@@ -119,13 +119,13 @@ function fitCase() {
   const rightX = (y) => (y < 110 ? w - 30 : w - 30 + 22 * ((y - 110) / (h - 110)));
   const outer = `M6 ${h} L${lt} 60 Q${lt + 2} ${top} ${lt + 46} ${top} L${w - 130} ${top} C${w - 60} ${top} ${w - 34} ${top + 30} ${w - 30} 110 L${w - 8} ${h}`;
   $("caseBack").setAttribute("viewBox", `0 0 ${w} ${h}`);
-  $("caseBack").innerHTML = `<path class="glass-fill" d="${outer} Z"/>`;
-  $("caseFront").setAttribute("viewBox", `0 0 ${w} ${h}`);
-  $("caseFront").innerHTML = `
+  $("caseBack").innerHTML = `<path class="glass-fill" d="${outer} Z"/>
     <path class="streak" d="M${w * 0.62} ${top + 14} L${w * 0.66} ${top + 14} L${w * 0.44} ${h} L${w * 0.4} ${h} Z"/>
     <path class="streak thin" d="M${w * 0.69} ${top + 14} L${w * 0.7} ${top + 14} L${w * 0.49} ${h} L${w * 0.48} ${h} Z"/>
+    <path class="glass-edge" fill="none" d="M${lt + 64} ${top + 14} L${w - 136} ${top + 14} M${lt + 64} ${top + 14} L${lt + 50} ${h}"/>`;
+  $("caseFront").setAttribute("viewBox", `0 0 ${w} ${h}`);
+  $("caseFront").innerHTML = `
     <g filter="url(#wobble)" fill="none" stroke-linecap="round" stroke-linejoin="round">
-      <path class="glass-edge" d="M${lt + 64} ${top + 14} L${w - 136} ${top + 14} M${lt + 64} ${top + 14} L${lt + 50} ${h}"/>
       <path class="frame" d="${outer}"/>
     </g>`;
   const boxTop = box.getBoundingClientRect().top;
